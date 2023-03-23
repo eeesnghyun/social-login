@@ -19,10 +19,19 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
+	//Apple Login
+	implementation 'com.nimbusds:nimbus-jose-jwt:3.10'
+	//Json
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
+	//Thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
