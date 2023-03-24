@@ -9,7 +9,6 @@ public class AppleDTO {
 
     private String id;
     private String token;
-    private String name;
     private String email;
 
 }

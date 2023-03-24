@@ -23,10 +23,8 @@ public class AppleController {
         AppleDTO appleInfo = appleService.getAppleInfo(request.getParameter("code"));
 
         return ResponseEntity.ok()
-                .body(new MsgEntity("id", appleInfo));
+                .body(new MsgEntity("Success", appleInfo));
     }
-
-
 
 
 }

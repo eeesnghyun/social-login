@@ -61,10 +61,11 @@ public class AppleService {
     }
 
     public AppleDTO getAppleInfo(String code) throws Exception {
-        if (code == null) throw new Exception();
+        if (code == null) throw new Exception("Failed get authorization code");
 
         String clientSecret = createClientSecret();
-		String userId  = "";
+		String userId = "";
+        String email  = "";
 		String accessToken = "";
 
 		try {
@@ -89,11 +90,7 @@ public class AppleService {
 	        );
 
 	        JSONParser jsonParser = new JSONParser();
-	        JSONObject jsonObj = (JSONObject) jsonParser.parse(response.getBody());;
-
-            System.out.println("=========================jsonObj=============================");
-            System.out.println(jsonObj);
-            System.out.println("======================================================");
+	        JSONObject jsonObj = (JSONObject) jsonParser.parse(response.getBody());
 
 			accessToken = String.valueOf(jsonObj.get("access_token"));
 
@@ -104,23 +101,19 @@ public class AppleService {
 	        ObjectMapper objectMapper = new ObjectMapper();
 	        JSONObject payload = objectMapper.readValue(getPayload.toJSONObject().toJSONString(), JSONObject.class);
 
-            System.out.println("=========================payload=============================");
-            System.out.println(payload);
-            System.out.println("======================================================");
-
 	        userId = String.valueOf(payload.get("sub"));
+	        email  = String.valueOf(payload.get("email"));
 		} catch (Exception e) {
-			throw new Exception("정보 조회에 실패했습니다. 관리자에게 문의해주세요.");
+			throw new Exception("API call failed");
 		}
 
         return AppleDTO.builder()
                 .id(userId)
                 .token(accessToken)
-                .email("")
-                .name("").build();
+                .email(email).build();
     }
 
-    private String createClientSecret() {
+    private String createClientSecret() throws Exception {
 		JWSHeader header = new JWSHeader.Builder(JWSAlgorithm.ES256).keyID(APPLE_LOGIN_KEY).build();
         JWTClaimsSet claimsSet = new JWTClaimsSet();
 
@@ -139,13 +132,13 @@ public class AppleService {
 
             jwt.sign(jwsSigner);
         } catch (InvalidKeyException | JOSEException e) {
-            e.printStackTrace();
+            throw new Exception("Failed create client secret");
         }
 
         return jwt.serialize();
 	}
 
-    private byte[] getPrivateKey() {
+    private byte[] getPrivateKey() throws Exception {
         byte[] content = null;
         File file = null;
 
@@ -183,7 +176,7 @@ public class AppleService {
                 e.printStackTrace();
             }
         } else {
-            throw new RuntimeException("Error: File " + file + " not found!");
+            throw new Exception("File " + file + " not found");
         }
 
         return content;
