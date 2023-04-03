@@ -7,11 +7,11 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MsgEntity {
 
-    private String id;
+    private String msg;
     private Object result;
 
-    public MsgEntity(String id, Object result) {
-        this.id = id;
+    public MsgEntity(String msg, Object result) {
+        this.msg = msg;
         this.result  = result;
     }
 }
