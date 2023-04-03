@@ -12,5 +12,4 @@ public class KakaoDTO {
     private String email;
     private String nickname;
 
-
 }
