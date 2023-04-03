@@ -10,7 +10,6 @@ import com.nimbusds.jose.crypto.ECDSASigner;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.ReadOnlyJWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import lombok.RequiredArgsConstructor;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.json.simple.JSONObject;
@@ -32,7 +31,6 @@ import java.security.InvalidKeyException;
 import java.security.interfaces.ECPrivateKey;
 import java.util.Date;
 
-@RequiredArgsConstructor
 @Service
 public class AppleService {
 
