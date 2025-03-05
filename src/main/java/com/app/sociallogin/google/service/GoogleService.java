@@ -79,8 +79,6 @@ public class GoogleService {
         RestTemplate restTemplate = new RestTemplate();
         JsonNode userResourceNode = restTemplate.exchange(GOOGLE_RESOURCE_URI, HttpMethod.GET, httpEntity, JsonNode.class).getBody();
 
-        log.info(userResourceNode.toString());
-
         return GoogleAccount.builder()
                 .id(userResourceNode.get("id").asLong())
                 .name(userResourceNode.get("name").asText())
