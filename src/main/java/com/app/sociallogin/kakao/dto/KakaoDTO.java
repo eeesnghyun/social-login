@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class KakaoDTO {
 
-    private long id;
+    private Long id;
     private String email;
     private String nickname;
 
